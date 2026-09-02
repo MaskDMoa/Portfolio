@@ -120,6 +120,28 @@ export default function Home() {
               </div>
             </motion.section>
 
+import { SiCplusplus, SiJavascript, SiTypescript, SiHtml5, SiCss3, SiReact, SiNextdotjs, SiWazuh, SiDocker, SiMysql, SiLinux, SiWindows } from "react-icons/si";
+import { FaJava, FaPython, FaUserSecret } from "react-icons/fa";
+
+const programmingSkills = [
+  { name: "C++", icon: SiCplusplus, color: "#00599C" },
+  { name: "Java", icon: FaJava, color: "#e37920" },
+  { name: "Python", icon: FaPython, color: "#3776AB" },
+  { name: "JS / TS", icon: SiTypescript, color: "#3178C6" },
+  { name: "HTML / CSS", icon: SiHtml5, color: "#E34F26" },
+  { name: "React / Next.js", icon: SiReact, color: "#61DAFB" },
+];
+
+const infraSkills = [
+  { name: "Wazuh (SIEM)", icon: SiWazuh, color: "#0072B5" },
+  { name: "Ethical Hacking", icon: FaUserSecret, color: "#333" },
+  { name: "Linux · WSL2", icon: SiLinux, color: "#FCC624" },
+  { name: "Docker", icon: SiDocker, color: "#2496ED" },
+  { name: "MySQL", icon: SiMysql, color: "#4479A1" },
+  { name: "Windows Server", icon: SiWindows, color: "#0078D6" },
+];
+
+// ... (dentro do component Home) ...
             {/* ─── 03 · HABILIDADES & FORMAÇÃO ─── */}
             <motion.section variants={itemVariants} className="pb-10 mb-10" style={{ borderBottom: "1px solid var(--border)" }}>
               <SectionLabel index="03">Habilidades & Formação</SectionLabel>
@@ -127,14 +149,22 @@ export default function Home() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {/* Linguagens */}
                 <div>
-                  <h3 className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "var(--foreground-muted)" }}>
+                  <h3 className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: "var(--foreground-muted)" }}>
                     Linguagens
                   </h3>
-                  <ul className="space-y-1.5 text-sm" style={{ color: "var(--foreground)" }}>
-                    {["C++", "Java", "Python", "JavaScript / TypeScript", "HTML5 · CSS3", "React / Next.js"].map(s => (
-                      <li key={s} className="flex items-center gap-2">
-                        <span className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: "var(--border-strong)" }} />
-                        {s}
+                  <ul className="flex flex-col gap-3">
+                    {programmingSkills.map(skill => (
+                      <li
+                        key={skill.name}
+                        className="flex items-center gap-3 px-3 py-2 rounded-sm transition-transform hover:-translate-y-0.5 hover:translate-x-0.5"
+                        style={{ 
+                          background: "var(--surface)", 
+                          border: "1px solid var(--border-strong)",
+                          boxShadow: "3px 3px 0px rgba(0,0,0,0.85)"
+                        }}
+                      >
+                        <skill.icon className="text-lg" style={{ color: skill.color }} />
+                        <span className="text-sm font-semibold" style={{ color: "var(--foreground)" }}>{skill.name}</span>
                       </li>
                     ))}
                   </ul>
@@ -142,14 +172,22 @@ export default function Home() {
 
                 {/* Segurança & Infra */}
                 <div>
-                  <h3 className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "var(--foreground-muted)" }}>
+                  <h3 className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: "var(--foreground-muted)" }}>
                     Segurança & Infra
                   </h3>
-                  <ul className="space-y-1.5 text-sm" style={{ color: "var(--foreground)" }}>
-                    {["Wazuh (SIEM)", "Ethical Hacking", "Linux · WSL2", "Docker", "MySQL", "Windows Server"].map(s => (
-                      <li key={s} className="flex items-center gap-2">
-                        <span className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: "var(--border-strong)" }} />
-                        {s}
+                  <ul className="flex flex-col gap-3">
+                    {infraSkills.map(skill => (
+                      <li
+                        key={skill.name}
+                        className="flex items-center gap-3 px-3 py-2 rounded-sm transition-transform hover:-translate-y-0.5 hover:translate-x-0.5"
+                        style={{ 
+                          background: "var(--surface)", 
+                          border: "1px solid var(--border-strong)",
+                          boxShadow: "3px 3px 0px rgba(0,0,0,0.85)"
+                        }}
+                      >
+                        <skill.icon className="text-lg" style={{ color: skill.color }} />
+                        <span className="text-sm font-semibold" style={{ color: "var(--foreground)" }}>{skill.name}</span>
                       </li>
                     ))}
                   </ul>
@@ -157,10 +195,10 @@ export default function Home() {
 
                 {/* Formação */}
                 <div>
-                  <h3 className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "var(--foreground-muted)" }}>
+                  <h3 className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: "var(--foreground-muted)" }}>
                     Formação & Cursos
                   </h3>
-                  <ul className="space-y-3 text-sm">
+                  <ul className="space-y-4 text-sm mt-1">
                     {[
                       { title: "Eng. de Computação", sub: "INATEL · em andamento" },
                       { title: "Cybersecurity", sub: "INATEL" },
