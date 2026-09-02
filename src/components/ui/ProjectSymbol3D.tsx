@@ -1,7 +1,8 @@
 "use client";
 
 import { Canvas, useFrame } from "@react-three/fiber";
-import { useRef, useState } from "react";
+import { Edges, RoundedBox } from "@react-three/drei";
+import { useMemo, useRef } from "react";
 import * as THREE from "three";
 import { Project } from "@/data/projects";
 
@@ -10,96 +11,136 @@ interface SymbolProps {
     hovered: boolean;
 }
 
+
+type SymbolStyle = {
+    color: string;
+    edgeColor: string;
+    roughness: number;
+    metalness: number;
+};
+
+const SYMBOL_STYLE: Record<string, SymbolStyle> = {
+    cross: { color: "#8a1f1f", edgeColor: "#ff6b6b", roughness: 0.3, metalness: 0.4 },
+    icosahedron: { color: "#1a1a1a", edgeColor: "#e8c469", roughness: 0.15, metalness: 0.85 },
+    shield: { color: "#1c2b3d", edgeColor: "#8fa8c9", roughness: 0.25, metalness: 0.7 },
+    torus: { color: "#1a1a1a", edgeColor: "#e8c469", roughness: 0.1, metalness: 0.9 },
+    capsule: { color: "#1c3d38", edgeColor: "#7fd8ca", roughness: 0.3, metalness: 0.5 },
+    cube: { color: "#22331a", edgeColor: "#9fcf5e", roughness: 0.4, metalness: 0.3 },
+    default: { color: "#111111", edgeColor: "#ffffff", roughness: 0.2, metalness: 0.8 },
+};
+
+
 function Geometry({ symbol, hovered }: SymbolProps) {
-    const meshRef = useRef<THREE.Mesh>(null);
-    const groupRef = useRef<THREE.Group>(null);
+    const wrapperRef = useRef<THREE.Group>(null);
 
     useFrame((state, delta) => {
-        if (!meshRef.current && !groupRef.current) return;
-
-        const target = meshRef.current || groupRef.current;
+        const target = wrapperRef.current;
         if (!target) return;
 
-        // Base rotation
         target.rotation.x += delta * (hovered ? 0.8 : 0.2);
         target.rotation.y += delta * (hovered ? 1.2 : 0.3);
-        
-        // Float effect
         target.position.y = Math.sin(state.clock.elapsedTime * 2) * 0.1;
     });
 
-    const material = new THREE.MeshStandardMaterial({
-        color: "#111111",
-        roughness: 0.2,
-        metalness: 0.8,
-        wireframe: hovered,
-    });
+    const style = SYMBOL_STYLE[symbol ?? "default"] ?? SYMBOL_STYLE.default;
 
-    switch (symbol) {
-        case "cross":
-            return (
-                <group ref={groupRef} scale={hovered ? 1.2 : 1}>
-                    <mesh material={material}>
-                        <boxGeometry args={[0.5, 1.5, 0.5]} />
-                    </mesh>
-                    <mesh material={material}>
-                        <boxGeometry args={[1.5, 0.5, 0.5]} />
-                    </mesh>
-                </group>
-            );
-        case "icosahedron":
-            return (
-                <mesh ref={meshRef} material={material} scale={hovered ? 1.2 : 1}>
-                    <icosahedronGeometry args={[1, 0]} />
-                </mesh>
-            );
-        case "shield":
-            return (
-                <mesh ref={meshRef} material={material} scale={hovered ? 1.2 : 1}>
-                    <cylinderGeometry args={[1, 0.1, 0.2, 6]} />
-                </mesh>
-            );
-        case "torus":
-            return (
-                <mesh ref={meshRef} material={material} scale={hovered ? 1.2 : 1}>
-                    <torusGeometry args={[0.7, 0.3, 16, 32]} />
-                </mesh>
-            );
-        case "capsule":
-            return (
-                <mesh ref={meshRef} material={material} scale={hovered ? 1.2 : 1}>
-                    <capsuleGeometry args={[0.6, 0.8, 16, 16]} />
-                </mesh>
-            );
-        case "cube":
-            return (
-                <mesh ref={meshRef} material={material} scale={hovered ? 1.2 : 1}>
-                    <boxGeometry args={[1.2, 1.2, 1.2]} />
-                </mesh>
-            );
-        default:
-            return (
-                <mesh ref={meshRef} material={material}>
-                    <sphereGeometry args={[1, 16, 16]} />
-                </mesh>
-            );
-    }
-}
+    const material = useMemo(
+        () =>
+            new THREE.MeshStandardMaterial({
+                color: style.color,
+                roughness: style.roughness,
+                metalness: style.metalness,
+                wireframe: hovered,
+            }),
+        [style, hovered]
+    );
 
-export function ProjectSymbol3D({ symbol }: { symbol: Project["symbol3d"] }) {
-    const [hovered, setHovered] = useState(false);
+    const edges = (
+    <Edges color={style.edgeColor} lineWidth={hovered ? 2 : 1.5} opacity={1} transparent={false} />
+    );
+
+    const scale = hovered ? 1.15 : 1;
+
+    const shape = (() => {
+        switch (symbol) {
+            case "cross":
+                return (
+                    <>
+                        <RoundedBox args={[0.5, 1.5, 0.5]} radius={0.06} material={material}>
+                            {edges}
+                        </RoundedBox>
+                        <RoundedBox args={[1.5, 0.5, 0.5]} radius={0.06} material={material}>
+                            {edges}
+                        </RoundedBox>
+                    </>
+                );
+            case "icosahedron":
+                return (
+                    <mesh material={material}>
+                        <icosahedronGeometry args={[1, 0]} />
+                        {edges}
+                    </mesh>
+                );
+            case "shield":
+                return (
+                    <mesh material={material} rotation={[Math.PI / 2, 0, 0]}>
+                        <cylinderGeometry args={[1, 0.35, 0.25, 6]} />
+                        {edges}
+                    </mesh>
+                );
+            case "torus":
+                return (
+                    <mesh material={material}>
+                        <torusGeometry args={[0.7, 0.22, 16, 32]} />
+                        {edges}
+                    </mesh>
+                );
+            case "capsule":
+                return (
+                    <mesh material={material}>
+                        <capsuleGeometry args={[0.55, 0.75, 8, 16]} />
+                        {edges}
+                    </mesh>
+                );
+            case "cube":
+                return (
+                    <RoundedBox args={[1.2, 1.2, 1.2]} radius={0.08} material={material}>
+                        {edges}
+                    </RoundedBox>
+                );
+            default:
+                return (
+                    <mesh material={material}>
+                        <sphereGeometry args={[1, 16, 16]} />
+                        {edges}
+                    </mesh>
+                );
+        }
+    })();
 
     return (
-        <div 
-            className="w-full h-full absolute inset-0 z-0 opacity-20 pointer-events-auto"
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
-        >
-            <Canvas camera={{ position: [0, 0, 4], fov: 45 }}>
+        <group ref={wrapperRef} scale={scale}>
+            {shape}
+        </group>
+    );
+}
+
+export function ProjectSymbol3D({
+    symbol,
+    hovered,
+}: {
+    symbol: Project["symbol3d"];
+    hovered: boolean;
+}) {
+    return (
+        <div className="w-full h-full absolute inset-0 z-0 opacity-40 pointer-events-none [mask-image:radial-gradient(circle_at_bottom_right,black,transparent_75%)]">
+            <Canvas
+                camera={{ position: [0, 0, 4], fov: 45 }}
+                dpr={[1, 1.5]}
+                gl={{ antialias: true, alpha: true }}
+            >
                 <ambientLight intensity={2} />
                 <directionalLight position={[2, 5, 2]} intensity={4} />
-                <pointLight position={[-2, -2, -2]} intensity={2} color="#ffffff" />
-                
                 <Geometry symbol={symbol} hovered={hovered} />
             </Canvas>
         </div>

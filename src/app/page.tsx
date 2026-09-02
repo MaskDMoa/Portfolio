@@ -131,9 +131,9 @@ export default function Home() {
                 <div className="flex-1 w-full flex justify-center items-center mt-8 md:mt-0">
                   <div className="w-56 h-56 sm:w-72 sm:h-72 rounded-sm border-2 border-dashed flex flex-col items-center justify-center relative bg-[var(--surface)] transition-colors hover:bg-[var(--surface-alt)]" style={{ borderColor: "var(--border-strong)" }}>
                     <span className="text-[var(--foreground-muted)] text-sm font-bold tracking-widest text-center px-4">
-                      [ ESPAÇO PARA SUA FOTO ]<br />
+                      [ FOTO ]<br />
                       <span className="text-xs font-normal mt-2 block opacity-70">
-                        Insira uma tag &lt;img&gt; aqui
+                        (aqui ficaria minha foto)
                       </span>
                     </span>
 
