@@ -4,6 +4,26 @@ import { motion, Variants } from "framer-motion";
 import { WindowFrame } from "@/components/ui/WindowFrame";
 import { FileCard } from "@/components/ui/FileCard";
 import { projects } from "@/data/projects";
+import { SiCplusplus, SiJavascript, SiTypescript, SiHtml5, SiCss3, SiReact, SiNextdotjs, SiWazuh, SiDocker, SiMysql, SiLinux, SiWindows } from "react-icons/si";
+import { FaJava, FaPython, FaUserSecret } from "react-icons/fa";
+
+const programmingSkills = [
+  { name: "C++", icon: SiCplusplus, color: "#00599C" },
+  { name: "Java", icon: FaJava, color: "#e37920" },
+  { name: "Python", icon: FaPython, color: "#3776AB" },
+  { name: "JS / TS", icon: SiTypescript, color: "#3178C6" },
+  { name: "HTML / CSS", icon: SiHtml5, color: "#E34F26" },
+  { name: "React / Next.js", icon: SiReact, color: "#61DAFB" },
+];
+
+const infraSkills = [
+  { name: "Wazuh (SIEM)", icon: SiWazuh, color: "#0072B5" },
+  { name: "Ethical Hacking", icon: FaUserSecret, color: "#333" },
+  { name: "Linux · WSL2", icon: SiLinux, color: "#FCC624" },
+  { name: "Docker", icon: SiDocker, color: "#2496ED" },
+  { name: "MySQL", icon: SiMysql, color: "#4479A1" },
+  { name: "Windows Server", icon: SiWindows, color: "#0078D6" },
+];
 
 const socialLinks = [
   { href: "https://github.com/MaskDMoa", label: "GITHUB ↗" },
@@ -37,7 +57,7 @@ const itemVariants: Variants = {
   show: {
     y: 0,
     opacity: 1,
-    transition: { duration: 0.5, ease: "easeOut" },
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
   },
 };
 
@@ -120,26 +140,7 @@ export default function Home() {
               </div>
             </motion.section>
 
-import { SiCplusplus, SiJavascript, SiTypescript, SiHtml5, SiCss3, SiReact, SiNextdotjs, SiWazuh, SiDocker, SiMysql, SiLinux, SiWindows } from "react-icons/si";
-import { FaJava, FaPython, FaUserSecret } from "react-icons/fa";
 
-const programmingSkills = [
-  { name: "C++", icon: SiCplusplus, color: "#00599C" },
-  { name: "Java", icon: FaJava, color: "#e37920" },
-  { name: "Python", icon: FaPython, color: "#3776AB" },
-  { name: "JS / TS", icon: SiTypescript, color: "#3178C6" },
-  { name: "HTML / CSS", icon: SiHtml5, color: "#E34F26" },
-  { name: "React / Next.js", icon: SiReact, color: "#61DAFB" },
-];
-
-const infraSkills = [
-  { name: "Wazuh (SIEM)", icon: SiWazuh, color: "#0072B5" },
-  { name: "Ethical Hacking", icon: FaUserSecret, color: "#333" },
-  { name: "Linux · WSL2", icon: SiLinux, color: "#FCC624" },
-  { name: "Docker", icon: SiDocker, color: "#2496ED" },
-  { name: "MySQL", icon: SiMysql, color: "#4479A1" },
-  { name: "Windows Server", icon: SiWindows, color: "#0078D6" },
-];
 
 // ... (dentro do component Home) ...
             {/* ─── 03 · HABILIDADES & FORMAÇÃO ─── */}
