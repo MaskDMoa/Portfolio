@@ -4,8 +4,8 @@ import { motion, Variants } from "framer-motion";
 import { WindowFrame } from "@/components/ui/WindowFrame";
 import { FileCard } from "@/components/ui/FileCard";
 import { projects } from "@/data/projects";
-import { SiCplusplus, SiJavascript, SiTypescript, SiHtml5, SiCss3, SiReact, SiNextdotjs, SiWazuh, SiDocker, SiMysql, SiLinux, SiWindows } from "react-icons/si";
-import { FaJava, FaPython, FaUserSecret } from "react-icons/fa";
+import { SiCplusplus, SiJavascript, SiTypescript, SiHtml5, SiReact, SiNextdotjs, SiDocker, SiMysql, SiLinux } from "react-icons/si";
+import { FaJava, FaPython, FaUserSecret, FaShieldAlt, FaWindows } from "react-icons/fa";
 
 const programmingSkills = [
   { name: "C++", icon: SiCplusplus, color: "#00599C" },
@@ -17,12 +17,12 @@ const programmingSkills = [
 ];
 
 const infraSkills = [
-  { name: "Wazuh (SIEM)", icon: SiWazuh, color: "#0072B5" },
+  { name: "Wazuh (SIEM)", icon: FaShieldAlt, color: "#0072B5" },
   { name: "Ethical Hacking", icon: FaUserSecret, color: "#333" },
   { name: "Linux · WSL2", icon: SiLinux, color: "#FCC624" },
   { name: "Docker", icon: SiDocker, color: "#2496ED" },
   { name: "MySQL", icon: SiMysql, color: "#4479A1" },
-  { name: "Windows Server", icon: SiWindows, color: "#0078D6" },
+  { name: "Windows Server", icon: FaWindows, color: "#0078D6" },
 ];
 
 const socialLinks = [
