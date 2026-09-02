@@ -6,6 +6,7 @@ import { FileCard } from "@/components/ui/FileCard";
 import { projects } from "@/data/projects";
 import { SiCplusplus, SiJavascript, SiTypescript, SiHtml5, SiReact, SiNextdotjs, SiDocker, SiMysql, SiLinux } from "react-icons/si";
 import { FaJava, FaPython, FaUserSecret, FaShieldAlt, FaWindows } from "react-icons/fa";
+import { RetroComputer } from "@/components/ui/RetroComputer";
 
 const programmingSkills = [
   { name: "C++", icon: SiCplusplus, color: "#00599C" },
@@ -29,6 +30,7 @@ const socialLinks = [
   { href: "https://github.com/MaskDMoa", label: "GITHUB ↗" },
   { href: "https://www.linkedin.com/in/hiago-felipe-7b1726267/", label: "LINKEDIN ↗" },
   { href: "mailto:hiagofml11@gmail.com", label: "EMAIL ↗" },
+  { href: "/curriculo_hiago.pdf", label: "CURRÍCULO ↓", download: true },
 ];
 
 function SectionLabel({ index, children }: { index: string; children: string }) {
@@ -64,7 +66,7 @@ const itemVariants: Variants = {
 export default function Home() {
   return (
     <div
-      className="min-h-screen p-4 sm:p-8 xl:p-12 flex flex-col items-center relative"
+      className="min-h-screen p-4 pl-16 sm:p-8 sm:pl-20 xl:p-12 xl:pl-24 flex flex-col items-center relative"
       style={{ background: "var(--background)" }}
     >
       {/* Background texture */}
@@ -88,30 +90,29 @@ export default function Home() {
                 C:\USUARIOS\HIAGO
               </p>
 
-              {/* Nome + Bio lado a lado no desktop */}
-              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-                <div>
+              {/* Nome + Bio + 3D lado a lado no desktop */}
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                <div className="flex-1">
                   <h1 className="text-5xl sm:text-6xl font-black leading-none tracking-tight mb-3" style={{ color: "var(--foreground)" }}>
                     Hiago<br />
                     <span style={{ color: "var(--foreground-muted)" }}>Felipe.</span>
                   </h1>
-                  <p className="text-sm font-medium" style={{ color: "var(--foreground-muted)" }}>
+                  <p className="text-sm font-medium mb-3" style={{ color: "var(--foreground-muted)" }}>
                     Engenharia de Computação · INATEL · Cibersegurança & Dev
                   </p>
-                </div>
-
-                <div className="flex flex-col gap-3 md:text-right max-w-xs">
-                  <p className="text-sm leading-relaxed" style={{ color: "var(--foreground-muted)" }}>
+                  <p className="text-sm leading-relaxed max-w-sm mb-6" style={{ color: "var(--foreground-muted)" }}>
                     Estudo Engenharia de Computação no INATEL. Foco em automação de resposta a incidentes (Wazuh) e desenvolvimento web (React/Next.js).
                   </p>
+                  
                   {/* Links de contato */}
-                  <div className="flex gap-2 md:justify-end flex-wrap">
+                  <div className="flex gap-2 flex-wrap">
                     {socialLinks.map((link) => (
                       <a
                         key={link.label}
                         href={link.href}
                         target={link.href.startsWith("mailto") ? undefined : "_blank"}
-                        rel="noreferrer"
+                        rel={link.download || link.href.startsWith("mailto") ? undefined : "noreferrer"}
+                        download={link.download}
                         className="text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-sm transition-all"
                         style={{ background: "var(--surface-alt)", color: "var(--foreground)" }}
                         onMouseEnter={e => {
@@ -125,6 +126,10 @@ export default function Home() {
                       </a>
                     ))}
                   </div>
+                </div>
+
+                <div className="flex-1 w-full max-w-sm mx-auto mt-8 md:mt-0 relative" style={{ height: "300px" }}>
+                  <RetroComputer />
                 </div>
               </div>
             </motion.section>
@@ -158,8 +163,8 @@ export default function Home() {
                       <li
                         key={skill.name}
                         className="flex items-center gap-3 px-3 py-2 rounded-sm transition-transform hover:-translate-y-0.5 hover:translate-x-0.5"
-                        style={{ 
-                          background: "var(--surface)", 
+                        style={{
+                          background: "var(--surface)",
                           border: "1px solid var(--border-strong)",
                           boxShadow: "3px 3px 0px rgba(0,0,0,0.85)"
                         }}
@@ -181,8 +186,8 @@ export default function Home() {
                       <li
                         key={skill.name}
                         className="flex items-center gap-3 px-3 py-2 rounded-sm transition-transform hover:-translate-y-0.5 hover:translate-x-0.5"
-                        style={{ 
-                          background: "var(--surface)", 
+                        style={{
+                          background: "var(--surface)",
                           border: "1px solid var(--border-strong)",
                           boxShadow: "3px 3px 0px rgba(0,0,0,0.85)"
                         }}
