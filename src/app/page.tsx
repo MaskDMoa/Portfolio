@@ -21,6 +21,26 @@ function SectionLabel({ index, children }: { index: string; children: string }) 
   );
 }
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  show: {
+    y: 0,
+    opacity: 1,
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
 export default function Home() {
   return (
     <div
@@ -34,16 +54,16 @@ export default function Home() {
       />
 
       <motion.div
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        initial="hidden"
+        animate="show"
+        variants={containerVariants}
         className="w-full max-w-5xl z-10 my-10"
       >
         <WindowFrame title="hiago.exe" accentColor="#c9a84c">
           <div className="flex flex-col">
 
             {/* ─── 01 · HERO / IDENTIDADE ─── */}
-            <section className="pb-10 mb-10" style={{ borderBottom: "1px solid var(--border)" }}>
+            <motion.section variants={itemVariants} className="pb-10 mb-10" style={{ borderBottom: "1px solid var(--border)" }}>
               <p className="text-xs font-bold tracking-widest uppercase mb-4" style={{ color: "var(--accent-yellow)" }}>
                 C:\USUARIOS\HIAGO
               </p>
@@ -62,7 +82,7 @@ export default function Home() {
 
                 <div className="flex flex-col gap-3 md:text-right max-w-xs">
                   <p className="text-sm leading-relaxed" style={{ color: "var(--foreground-muted)" }}>
-                    Estudante apaixonado por segurança ofensiva e desenvolvimento web. Buscando meu primeiro estágio para aplicar conhecimentos reais em ambientes de produção.
+                    Estudo Engenharia de Computação no INATEL. Foco em automação de resposta a incidentes (Wazuh) e desenvolvimento web (React/Next.js).
                   </p>
                   {/* Links de contato */}
                   <div className="flex gap-2 md:justify-end flex-wrap">
@@ -87,10 +107,10 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </section>
+            </motion.section>
 
             {/* ─── 02 · PROJETOS ─── */}
-            <section className="pb-10 mb-10" style={{ borderBottom: "1px solid var(--border)" }}>
+            <motion.section variants={itemVariants} className="pb-10 mb-10" style={{ borderBottom: "1px solid var(--border)" }}>
               <SectionLabel index="02">Projetos</SectionLabel>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -98,10 +118,10 @@ export default function Home() {
                   <FileCard key={project.id} project={project} index={index + 1} />
                 ))}
               </div>
-            </section>
+            </motion.section>
 
             {/* ─── 03 · HABILIDADES & FORMAÇÃO ─── */}
-            <section className="pb-10 mb-10" style={{ borderBottom: "1px solid var(--border)" }}>
+            <motion.section variants={itemVariants} className="pb-10 mb-10" style={{ borderBottom: "1px solid var(--border)" }}>
               <SectionLabel index="03">Habilidades & Formação</SectionLabel>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -155,26 +175,64 @@ export default function Home() {
                   </ul>
                 </div>
               </div>
-            </section>
+            </motion.section>
 
-            {/* ─── 04 · OBJETIVO ─── */}
-            <section>
-              <SectionLabel index="04">Objetivo Profissional</SectionLabel>
+            {/* ─── 04 · VOLUNTARIADO & EXTENSÃO ─── */}
+            <motion.section variants={itemVariants} className="pb-10 mb-10" style={{ borderBottom: "1px solid var(--border)" }}>
+              <SectionLabel index="04">Voluntariado & Extensão</SectionLabel>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                  <h3 className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "var(--foreground-muted)" }}>
+                    CP2eJr (Empresa Júnior)
+                  </h3>
+                  <p className="text-sm font-semibold mb-1" style={{ color: "var(--foreground)" }}>Desenvolvimento Web</p>
+                  <p className="text-xs leading-relaxed" style={{ color: "var(--foreground-muted)" }}>
+                    Atuação no Núcleo de Projetos desenvolvendo sites institucionais e aplicações reais com React.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "var(--foreground-muted)" }}>
+                    Sustentabilidade
+                  </h3>
+                  <p className="text-sm font-semibold mb-1" style={{ color: "var(--foreground)" }}>Lixo Eletrônico</p>
+                  <p className="text-xs leading-relaxed" style={{ color: "var(--foreground-muted)" }}>
+                    Voluntário na coleta, triagem e destinação adequada de resíduos eletrônicos.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "var(--foreground-muted)" }}>
+                    ONG Casa Viva
+                  </h3>
+                  <p className="text-sm font-semibold mb-1" style={{ color: "var(--foreground)" }}>Professor de Informática</p>
+                  <p className="text-xs leading-relaxed" style={{ color: "var(--foreground-muted)" }}>
+                    Ensino de informática básica para crianças e adolescentes em situação de vulnerabilidade.
+                  </p>
+                </div>
+              </div>
+            </motion.section>
+
+            {/* ─── 05 · OBJETIVO ─── */}
+            <motion.section variants={itemVariants}>
+              <SectionLabel index="05">Objetivo Profissional</SectionLabel>
               <p className="text-sm leading-relaxed max-w-3xl" style={{ color: "var(--foreground-muted)" }}>
                 Busco meu <strong style={{ color: "var(--foreground)" }}>primeiro estágio</strong> em Cibersegurança, Desenvolvimento de Software ou TI para aplicar conhecimentos em automação, monitoramento e desenvolvimento web — e crescer junto com uma equipe sólida.
               </p>
-            </section>
+            </motion.section>
 
           </div>
         </WindowFrame>
 
         {/* Rodapé da página */}
-        <p className="text-center text-xs mt-6" style={{ color: "var(--foreground-muted)" }}>
-          HIAGO.EXE · 2025 · Feito com Next.js + Tailwind + Framer Motion
-        </p>
+        <motion.p variants={itemVariants} className="text-center text-xs mt-6" style={{ color: "var(--foreground-muted)" }}>
+          HIAGO.EXE · 2026 · Feito com Next.js + Tailwind + Framer Motion
+        </motion.p>
       </motion.div>
     </div>
   );
 }
+
 
 
