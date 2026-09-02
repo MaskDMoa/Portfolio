@@ -103,7 +103,7 @@ export default function Home() {
                   <p className="text-sm leading-relaxed max-w-sm mb-6" style={{ color: "var(--foreground-muted)" }}>
                     Estudo Engenharia de Computação no INATEL. Foco em automação de resposta a incidentes (Wazuh) e desenvolvimento web (React/Next.js).
                   </p>
-                  
+
                   {/* Links de contato */}
                   <div className="flex gap-2 flex-wrap">
                     {socialLinks.map((link) => (
@@ -128,8 +128,20 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="flex-1 w-full max-w-sm mx-auto mt-8 md:mt-0 relative" style={{ height: "300px" }}>
-                  <RetroComputer />
+                <div className="flex-1 w-full flex justify-center items-center mt-8 md:mt-0">
+                  <div className="w-56 h-56 sm:w-72 sm:h-72 rounded-sm border-2 border-dashed flex flex-col items-center justify-center relative bg-[var(--surface)] transition-colors hover:bg-[var(--surface-alt)]" style={{ borderColor: "var(--border-strong)" }}>
+                    <span className="text-[var(--foreground-muted)] text-sm font-bold tracking-widest text-center px-4">
+                      [ ESPAÇO PARA SUA FOTO ]<br />
+                      <span className="text-xs font-normal mt-2 block opacity-70">
+                        Insira uma tag &lt;img&gt; aqui
+                      </span>
+                    </span>
+
+                    {/* 3D Model floating widget */}
+                    <div className="absolute -bottom-10 -right-10 w-32 h-32 md:w-40 md:h-40 z-20 pointer-events-auto">
+                      <RetroComputer />
+                    </div>
+                  </div>
                 </div>
               </div>
             </motion.section>
@@ -147,7 +159,6 @@ export default function Home() {
 
 
 
-// ... (dentro do component Home) ...
             {/* ─── 03 · HABILIDADES & FORMAÇÃO ─── */}
             <motion.section variants={itemVariants} className="pb-10 mb-10" style={{ borderBottom: "1px solid var(--border)" }}>
               <SectionLabel index="03">Habilidades & Formação</SectionLabel>

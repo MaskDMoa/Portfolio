@@ -6,6 +6,7 @@ export interface Project {
   description: string;
   type: string;
   color: string;
+  symbol3d: "cross" | "icosahedron" | "shield" | "torus" | "capsule" | "cube";
 }
 
 export const projects: Project[] = [
@@ -17,6 +18,7 @@ export const projects: Project[] = [
     description: "Aplicação web para pesquisa de preços de remédios. O foco atual do desenvolvimento está na interface e experiência do usuário (UI/UX).",
     type: "PROJETO · SAÚDE (EM DESENVOLVIMENTO)",
     color: "#c4bfb8",
+    symbol3d: "cross",
   },
   {
     id: "gamestage",
@@ -26,6 +28,7 @@ export const projects: Project[] = [
     description: "Plataforma e-commerce focada no universo gamer. Projeto de desenvolvimento frontend focado em responsividade e interfaces iterativas.",
     type: "PROJETO · FRONTEND (EM DESENVOLVIMENTO)",
     color: "#c8c0b2",
+    symbol3d: "icosahedron",
   },
   {
     id: "wazuh-automation",
@@ -35,6 +38,7 @@ export const projects: Project[] = [
     description: "Projeto acadêmico para o Fetin 089: implantação do SIEM Wazuh via Docker e scripts Python para automação de respostas a alertas.",
     type: "PROJETO · CIBERSEGURANÇA (DOCKER)",
     color: "#b5bfb8",
+    symbol3d: "shield",
   },
   {
     id: "tracking-draw",
@@ -44,6 +48,7 @@ export const projects: Project[] = [
     description: "Ferramenta Python de rastreamento visual usando OpenCV com interface de desenho, como exercício de Visão Computacional.",
     type: "PROJETO · AUTOMAÇÃO / VISÃO COMP",
     color: "#b8c0c8",
+    symbol3d: "torus",
   },
   {
     id: "thanothos-bot",
@@ -53,6 +58,7 @@ export const projects: Project[] = [
     description: "Bot para Discord em Python com comandos básicos para auxílio na moderação e gerenciamento de servidores.",
     type: "PROJETO · BOT",
     color: "#bdb8c8",
+    symbol3d: "capsule",
   },
   {
     id: "mod-mine",
@@ -62,6 +68,7 @@ export const projects: Project[] = [
     description: "Modificação (Mod) para Minecraft feita em Java. Exercício de Programação Orientada a Objetos e manipulação de código existente.",
     type: "PROJETO · GAME DEV / JAVA",
     color: "#c8bfb5",
+    symbol3d: "cube",
   },
 ];
 

@@ -1,5 +1,6 @@
 import React from "react";
 import { Project } from "@/data/projects";
+import { ProjectSymbol3D } from "./ProjectSymbol3D";
 
 interface FileCardProps {
   project: Project;
@@ -8,41 +9,50 @@ interface FileCardProps {
 
 export const FileCard: React.FC<FileCardProps> = ({ project, index }) => {
   return (
-    <a 
-      href={project.link}
-      target="_blank"
-      rel="noreferrer"
-      className="group flex flex-col overflow-hidden rounded-sm transition-all duration-300 cursor-pointer"
+    <div
+      className="group flex flex-col overflow-hidden rounded-sm transition-all duration-300 relative h-full bg-[var(--surface)]"
       style={{ 
         background: project.color,
-        boxShadow: "0 1px 4px rgba(0,0,0,0.08)",
+        boxShadow: "4px 4px 0px rgba(0,0,0,0.9)",
+        border: "2px solid #000"
       }}
     >
-      <div className="p-5 flex flex-col h-full gap-2 relative min-h-[180px]">
+      {/* 3D Background Symbol */}
+      <ProjectSymbol3D symbol={project.symbol3d} />
+
+      <div className="p-5 flex flex-col h-full gap-2 relative z-10 min-h-[220px] pointer-events-none">
         <span 
           className="text-xs font-bold tracking-widest opacity-50 mb-1"
-          style={{ color: "rgba(0,0,0,0.6)" }}
+          style={{ color: "rgba(0,0,0,0.8)" }}
         >
           {index.toString().padStart(2, '0')}
         </span>
 
-        <div className="flex flex-col gap-0.5 z-10 mt-auto">
-          <small className="text-xs font-bold uppercase tracking-widest opacity-60" style={{ color: "rgba(0,0,0,0.7)" }}>
+        <div className="flex flex-col gap-0.5 mt-auto">
+          <small className="text-xs font-bold uppercase tracking-widest opacity-70" style={{ color: "rgba(0,0,0,0.9)" }}>
             {project.type}
           </small>
-          <h3 className="text-xl font-black tracking-tight text-black/90">
+          <h3 className="text-xl font-black tracking-tight text-black drop-shadow-md">
             {project.name}
           </h3>
         </div>
         
-        <p className="text-sm mt-1 z-10 text-black/60 leading-relaxed">
+        <p className="text-sm mt-1 text-black/80 font-medium leading-relaxed drop-shadow-sm">
           {project.description}
         </p>
         
-        <b className="mt-3 inline-block text-sm font-bold text-black/50 group-hover:text-black/80 transition-colors">
-          ABRIR ↗
-        </b>
+        {/* Enbelezado botão */}
+        <div className="mt-4 flex pointer-events-auto">
+            <a 
+              href={project.link}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-widest border-2 border-black bg-white text-black hover:bg-black hover:text-white transition-colors active:translate-y-0.5 active:translate-x-0.5 active:shadow-none shadow-[2px_2px_0px_#000]"
+            >
+              ABRIR <span className="text-lg leading-none mt-[-2px]">↗</span>
+            </a>
+        </div>
       </div>
-    </a>
+    </div>
   );
 };
