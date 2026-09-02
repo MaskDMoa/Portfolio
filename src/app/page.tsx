@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { WindowFrame } from "@/components/ui/WindowFrame";
 import { FileCard } from "@/components/ui/FileCard";
 import { projects } from "@/data/projects";
@@ -21,7 +21,7 @@ function SectionLabel({ index, children }: { index: string; children: string }) 
   );
 }
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
@@ -32,7 +32,7 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { y: 20, opacity: 0 },
   show: {
     y: 0,
