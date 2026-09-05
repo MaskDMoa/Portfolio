@@ -1,6 +1,6 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# dependencies
+# ─── Dependências ────────────────────────────────────────────────────────────
 /node_modules
 /.pnp
 .pnp.*
@@ -10,32 +10,41 @@
 !.yarn/releases
 !.yarn/versions
 
-# testing
-/coverage
-
-# next.js
+# ─── Next.js build output ────────────────────────────────────────────────────
 /.next/
 /out/
-
-# production
 /build
 
-# misc
-.DS_Store
-*.pem
+# ─── Playwright — resultados de testes E2E (gerados localmente) ──────────────
+/playwright-report/
+/test-results/
 
-# debug
+# ─── Cobertura de testes ─────────────────────────────────────────────────────
+/coverage
+
+# ─── Logs ────────────────────────────────────────────────────────────────────
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# ─── Sistema operacional ─────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
 
-# vercel
+# ─── Variáveis de ambiente (nunca commitar segredos!) ────────────────────────
+.env*
+!.env.example
+
+# ─── Vercel CLI ──────────────────────────────────────────────────────────────
 .vercel
 
-# typescript
+# ─── TypeScript ──────────────────────────────────────────────────────────────
 *.tsbuildinfo
 next-env.d.ts
+vitest-env.d.ts
+
+# ─── Chaves / certificados ───────────────────────────────────────────────────
+*.pem
+*.key
+*.cert

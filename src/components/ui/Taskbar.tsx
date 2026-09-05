@@ -62,6 +62,7 @@ export default function Taskbar() {
             </div>
 
             <time
+                suppressHydrationWarning
                 className="
           text-[10px]
           font-bold
