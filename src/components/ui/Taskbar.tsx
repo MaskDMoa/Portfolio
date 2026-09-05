@@ -1,9 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { FaSun, FaMoon } from "react-icons/fa";
+import { useTheme } from "@/context/ThemeContext";
 
 export default function Taskbar() {
     const [time, setTime] = useState(new Date());
+    const { theme, toggleTheme } = useTheme();
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -49,25 +52,13 @@ export default function Taskbar() {
           max-sm:flex-row
         "
             >
-                <a
-                    href="https://github.com/MaskDMoa"
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label="GitHub"
-                    className="text-[var(--foreground)] hover:opacity-60 transition-opacity"
+                <button
+                    onClick={toggleTheme}
+                    aria-label="Toggle Theme"
+                    className="text-[var(--foreground)] hover:opacity-60 transition-opacity p-2 flex items-center justify-center"
                 >
-                    GH
-                </a>
-
-                <a
-                    href="https://www.linkedin.com/in/hiago-felipe-7b1726267/"
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label="LinkedIn"
-                    className="text-[var(--foreground)] hover:opacity-60 transition-opacity"
-                >
-                    IN
-                </a>
+                    {theme === "dark" ? <FaSun size={20} /> : <FaMoon size={20} />}
+                </button>
             </div>
 
             <time

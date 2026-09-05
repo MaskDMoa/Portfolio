@@ -8,20 +8,73 @@ import { useRetroMode } from "@/context/RetroModeContext";
 
 function CRTMonitor() {
     const monitor = useRef<THREE.Group>(null);
+    const screenRef = useRef<THREE.MeshStandardMaterial>(null);
+    const ledRef = useRef<THREE.MeshStandardMaterial>(null);
     const { isRetroOn, toggleRetro } = useRetroMode();
     const [hovered, setHovered] = useState(false);
+
+    // Smooth values for lerped transitions
+    const smoothEmissive = useRef(0.05);
+    const smoothLedIntensity = useRef(0.5);
+    const ledFlicker = useRef(0);
 
     useFrame((state, delta) => {
         if (!monitor.current) return;
 
-        if (hovered) {
-            monitor.current.rotation.y += delta * 1.5;
-            monitor.current.rotation.x = Math.sin(state.clock.elapsedTime * 2) * 0.1;
+        // --- Rotation ---
+        // Always rotate slowly (continuous). Faster on hover.
+        const baseSpeed = 0.3;
+        const hoverSpeed = 1.2;
+        const speed = hovered ? hoverSpeed : baseSpeed;
+        monitor.current.rotation.y += delta * speed;
+
+        // Gentle organic oscillation on X axis
+        const breathe = Math.sin(state.clock.elapsedTime * 0.8) * 0.06;
+        monitor.current.rotation.x = THREE.MathUtils.lerp(
+            monitor.current.rotation.x,
+            0.1 + breathe,
+            0.05
+        );
+
+        // --- CRT Screen: 3 states ---
+        // Target emissive intensity based on state
+        let targetEmissive: number;
+        let targetLed: number;
+
+        if (isRetroOn) {
+            // State 3: ON — bright green CRT
+            targetEmissive = 0.45;
+            targetLed = 2;
+        } else if (hovered) {
+            // State 2: HOVER/STANDBY — subtle glow, flickering LED
+            targetEmissive = 0.18;
+            // Flickering LED effect
+            ledFlicker.current += delta * 8;
+            targetLed = 0.8 + Math.sin(ledFlicker.current) * 0.5;
         } else {
-            monitor.current.rotation.y = THREE.MathUtils.lerp(monitor.current.rotation.y, -0.4, 0.1);
-            monitor.current.rotation.x = THREE.MathUtils.lerp(monitor.current.rotation.x, 0.1, 0.1);
+            // State 1: OFF — very faint
+            targetEmissive = 0.05;
+            targetLed = 0.5;
+            ledFlicker.current = 0;
+        }
+
+        // Lerp for smooth transitions
+        smoothEmissive.current = THREE.MathUtils.lerp(smoothEmissive.current, targetEmissive, delta * 3);
+        smoothLedIntensity.current = THREE.MathUtils.lerp(smoothLedIntensity.current, targetLed, delta * 4);
+
+        // Apply to materials
+        if (screenRef.current) {
+            screenRef.current.emissiveIntensity = smoothEmissive.current;
+            // Shift emissive color from dark green (off) to brighter green (on)
+            const t = (smoothEmissive.current - 0.05) / 0.4; // 0 to 1
+            screenRef.current.emissive.setRGB(0, 0.1 + t * 0.9, 0.1 + t * 0.4);
+        }
+        if (ledRef.current) {
+            ledRef.current.emissiveIntensity = smoothLedIntensity.current;
         }
     });
+
+    const ledColor = isRetroOn ? "#00ff88" : hovered ? "#ffaa00" : "#ff3333";
 
     return (
         <group 
@@ -64,9 +117,10 @@ function CRTMonitor() {
             <mesh position={[0, 0.05, 1.38]}>
                 <planeGeometry args={[2.8, 1.75]} />
                 <meshStandardMaterial
+                    ref={screenRef}
                     color="#062d20"
-                    emissive={isRetroOn ? "#00ff88" : "#002200"}
-                    emissiveIntensity={isRetroOn ? 0.45 : 0.05}
+                    emissive="#002200"
+                    emissiveIntensity={0.05}
                     roughness={0.4}
                 />
             </mesh>
@@ -81,9 +135,10 @@ function CRTMonitor() {
             <mesh position={[0.8, -0.9, 1.4]}>
                 <sphereGeometry args={[0.07, 16, 16]} />
                 <meshStandardMaterial
-                    color={isRetroOn ? "#00ff88" : "#ff3333"}
-                    emissive={isRetroOn ? "#00ff88" : "#ff3333"}
-                    emissiveIntensity={isRetroOn ? 2 : 0.5}
+                    ref={ledRef}
+                    color={ledColor}
+                    emissive={ledColor}
+                    emissiveIntensity={0.5}
                 />
             </mesh>
 

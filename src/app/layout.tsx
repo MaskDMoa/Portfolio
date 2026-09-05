@@ -3,7 +3,10 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Taskbar from "@/components/ui/Taskbar";
 import { RetroModeProvider } from "@/context/RetroModeContext";
+import { ThemeProvider } from "@/context/ThemeContext";
 import { RetroLensOverlay } from "@/components/ui/RetroLensOverlay";
+import { CustomCursor } from "@/components/ui/CustomCursor";
+import { HyperellipseInit } from "@/components/ui/HyperellipseInit";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,16 +27,19 @@ export default function RootLayout({ children, }: { children: React.ReactNode; }
   return (
     <html
       lang="pt-BR"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}
     >
       <body className="font-mono min-h-full flex flex-col">
-        <RetroModeProvider>
-        <Taskbar />
-        {children}
-        <RetroLensOverlay />
-        </RetroModeProvider>
-
-        </body>
+        <ThemeProvider>
+          <RetroModeProvider>
+            <Taskbar />
+            {children}
+            <RetroLensOverlay />
+            <HyperellipseInit />
+            <CustomCursor />
+          </RetroModeProvider>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

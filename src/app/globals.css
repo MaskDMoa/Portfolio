@@ -8,7 +8,7 @@
 }
 
 :root {
-  /* Paleta pastél bege-acinzentada */
+  /* Paleta clara — tons pasteis originais */
   --background: #edeae4;
   --surface: #f4f1eb;
   --surface-alt: #e8e4dc;
@@ -16,13 +16,60 @@
   --border-strong: #a09890;
   --foreground: #1e1c1a;
   --foreground-muted: #6b6560;
+  
   --accent-yellow: #c9a84c;
   --accent-blue: #7a9bb5;
   --accent-green: #7a9b80;
   --accent-orange: #bf7b5e;
 }
 
+.dark {
+  /* Paleta escura — cinza/preto */
+  --background: #0e0e0e;
+  --surface: #161616;
+  --surface-alt: #1e1e1e;
+  --border: #2a2a2a;
+  --border-strong: #3a3a3a;
+  --foreground: #e8e6e3;
+  --foreground-muted: #8a8580;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
+}
+
+/* Scrollbar escura */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--foreground-muted);
+}
+
+/* Seleção */
+::selection {
+  background: rgba(201, 168, 76, 0.3);
+  color: var(--foreground);
+}
+
+/* Ocultar cursor nativo em telas com mouse (para usar CustomCursor) */
+@media (hover: hover) and (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+}
+
+/* Hyperellipse SSR Fallback */
+@supports not (corner-shape: superellipse(3)) {
+  :root {
+    --corner-scale: 0.6;
+  }
 }

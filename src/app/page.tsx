@@ -4,33 +4,36 @@ import { motion, Variants } from "framer-motion";
 import { WindowFrame } from "@/components/ui/WindowFrame";
 import { FileCard } from "@/components/ui/FileCard";
 import { projects } from "@/data/projects";
-import { SiCplusplus, SiJavascript, SiTypescript, SiHtml5, SiReact, SiNextdotjs, SiDocker, SiMysql, SiLinux } from "react-icons/si";
+import { SiCplusplus, SiTypescript, SiHtml5, SiReact, SiDocker, SiMysql, SiLinux } from "react-icons/si";
 import { FaJava, FaPython, FaUserSecret, FaShieldAlt, FaWindows } from "react-icons/fa";
 import { RetroComputer } from "@/components/ui/RetroComputer";
+import { GithubStats } from "@/components/ui/GithubStats";
+import { ScrollSection } from "@/components/ui/ScrollSection";
+import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 
 const programmingSkills = [
-  { name: "C++", icon: SiCplusplus, color: "#00599C" },
-  { name: "Java", icon: FaJava, color: "#e37920" },
-  { name: "Python", icon: FaPython, color: "#3776AB" },
-  { name: "JS / TS", icon: SiTypescript, color: "#3178C6" },
-  { name: "HTML / CSS", icon: SiHtml5, color: "#E34F26" },
-  { name: "React / Next.js", icon: SiReact, color: "#61DAFB" },
+  { name: "C++", icon: SiCplusplus, color: "#0d1b2a" },
+  { name: "Java", icon: FaJava, color: "#4a0f0f" },
+  { name: "Python", icon: FaPython, color: "#0d2b26" },
+  { name: "JS / TS", icon: SiTypescript, color: "#14210d" },
+  { name: "HTML / CSS", icon: SiHtml5, color: "#4a0f0f" },
+  { name: "React / Next.js", icon: SiReact, color: "#0d1b2a" },
 ];
 
 const infraSkills = [
-  { name: "Wazuh (SIEM)", icon: FaShieldAlt, color: "#0072B5" },
-  { name: "Ethical Hacking", icon: FaUserSecret, color: "#333" },
-  { name: "Linux · WSL2", icon: SiLinux, color: "#FCC624" },
-  { name: "Docker", icon: SiDocker, color: "#2496ED" },
-  { name: "MySQL", icon: SiMysql, color: "#4479A1" },
-  { name: "Windows Server", icon: FaWindows, color: "#0078D6" },
+  { name: "Wazuh (SIEM)", icon: FaShieldAlt, color: "#0d1b2a" },
+  { name: "Ethical Hacking", icon: FaUserSecret, color: "#0a0a0a" },
+  { name: "Linux · WSL2", icon: SiLinux, color: "#14210d" },
+  { name: "Docker", icon: SiDocker, color: "#0d1b2a" },
+  { name: "MySQL", icon: SiMysql, color: "#0d2b26" },
+  { name: "Windows Server", icon: FaWindows, color: "#0d1b2a" },
 ];
 
 const socialLinks = [
   { href: "https://github.com/MaskDMoa", label: "GITHUB ↗" },
   { href: "https://www.linkedin.com/in/hiago-felipe-7b1726267/", label: "LINKEDIN ↗" },
   { href: "mailto:hiagofml11@gmail.com", label: "EMAIL ↗" },
-  { href: "/curriculo_hiago.pdf", label: "CURRÍCULO ↓", download: true },
+  { href: "/Curriculo_Hiago_Felipe.pdf", label: "CURRÍCULO ↓", download: true },
 ];
 
 function SectionLabel({ index, children }: { index: string; children: string }) {
@@ -64,15 +67,17 @@ const itemVariants: Variants = {
 };
 
 export default function Home() {
+  const vibrate = useHapticFeedback();
+
   return (
     <div
       className="min-h-screen p-4 pl-16 sm:p-8 sm:pl-20 xl:p-12 xl:pl-24 flex flex-col items-center relative"
       style={{ background: "var(--background)" }}
     >
-      {/* Background texture */}
+
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.025]"
-        style={{ backgroundImage: "radial-gradient(#000 1px, transparent 1px)", backgroundSize: "28px 28px" }}
+        className="absolute inset-0 pointer-events-none opacity-[0.015]"
+        style={{ backgroundImage: "radial-gradient(#fff 1px, transparent 1px)", backgroundSize: "28px 28px" }}
       />
 
       <motion.div
@@ -84,13 +89,13 @@ export default function Home() {
         <WindowFrame title="hiago.exe" accentColor="#c9a84c">
           <div className="flex flex-col">
 
-            {/* ─── 01 · HERO / IDENTIDADE ─── */}
+
             <motion.section variants={itemVariants} className="pb-10 mb-10" style={{ borderBottom: "1px solid var(--border)" }}>
               <p className="text-xs font-bold tracking-widest uppercase mb-4" style={{ color: "var(--accent-yellow)" }}>
                 C:\USUARIOS\HIAGO
               </p>
 
-              {/* Nome + Bio + 3D lado a lado no desktop */}
+
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                 <div className="flex-1">
                   <h1 className="text-5xl sm:text-6xl font-black leading-none tracking-tight mb-3" style={{ color: "var(--foreground)" }}>
@@ -101,7 +106,7 @@ export default function Home() {
                     Engenharia de Computação · INATEL · Cibersegurança & Dev
                   </p>
                   <p className="text-sm leading-relaxed max-w-sm mb-6" style={{ color: "var(--foreground-muted)" }}>
-                    Estudo Engenharia de Computação no INATEL. Foco em automação de resposta a incidentes (Wazuh) e desenvolvimento web (React/Next.js).
+                    Estudo Engenharia de Computação no INATEL. Mexo com cibersegurança (Wazuh, automação de resposta a incidentes) e desenvolvimento web no dia a dia.
                   </p>
 
                   {/* Links de contato */}
@@ -110,12 +115,18 @@ export default function Home() {
                       <a
                         key={link.label}
                         href={link.href}
-                        target={link.href.startsWith("mailto") ? undefined : "_blank"}
+                        target={link.download || link.href.startsWith("mailto") ? undefined : "_blank"}
                         rel={link.download || link.href.startsWith("mailto") ? undefined : "noreferrer"}
                         download={link.download}
-                        className="text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-sm transition-all"
-                        style={{ background: "var(--surface-alt)", color: "var(--foreground)" }}
+                        onClick={() => vibrate(30)}
+                        className="text-xs font-bold uppercase tracking-wider px-3 py-1.5 transition-all"
+                        style={{
+                          background: "var(--surface-alt)",
+                          color: "var(--foreground)",
+                          border: "1px solid var(--border-strong)",
+                        }}
                         onMouseEnter={e => {
+                          vibrate(15);
                           (e.currentTarget as HTMLAnchorElement).style.background = "var(--border-strong)";
                         }}
                         onMouseLeave={e => {
@@ -128,40 +139,35 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="flex-1 w-full flex justify-center items-center mt-8 md:mt-0">
-                  <div className="w-56 h-56 sm:w-72 sm:h-72 rounded-sm border-2 border-dashed flex flex-col items-center justify-center relative bg-[var(--surface)] transition-colors hover:bg-[var(--surface-alt)]" style={{ borderColor: "var(--border-strong)" }}>
-                    <span className="text-[var(--foreground-muted)] text-sm font-bold tracking-widest text-center px-4">
-                      [ FOTO ]<br />
-                      <span className="text-xs font-normal mt-2 block opacity-70">
-                        (aqui ficaria minha foto)
-                      </span>
-                    </span>
+                <div className="flex-1 w-full flex justify-center items-center mt-8 md:mt-0 relative">
+                  <GithubStats />
 
                     {/* 3D Model floating widget */}
                     <div className="absolute -bottom-10 -right-10 w-32 h-32 md:w-40 md:h-40 z-20 pointer-events-auto">
                       <RetroComputer />
                     </div>
-                  </div>
                 </div>
               </div>
             </motion.section>
 
             {/* ─── 02 · PROJETOS ─── */}
-            <motion.section variants={itemVariants} className="pb-10 mb-10" style={{ borderBottom: "1px solid var(--border)" }}>
+            <ScrollSection className="pb-10 mb-10" style={{ borderBottom: "1px solid var(--border)" }}>
               <SectionLabel index="02">Projetos</SectionLabel>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-4 overflow-x-auto snap-x snap-mandatory pb-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
                 {projects.map((project, index) => (
-                  <FileCard key={project.id} project={project} index={index + 1} />
+                  <div key={project.id} className="min-w-[85vw] sm:min-w-0 snap-center shrink-0 h-full">
+                    <FileCard project={project} index={index + 1} />
+                  </div>
                 ))}
               </div>
-            </motion.section>
+            </ScrollSection>
 
 
 
             {/* ─── 03 · HABILIDADES & FORMAÇÃO ─── */}
-            <motion.section variants={itemVariants} className="pb-10 mb-10" style={{ borderBottom: "1px solid var(--border)" }}>
-              <SectionLabel index="03">Habilidades & Formação</SectionLabel>
+            <ScrollSection className="pb-10 mb-12" style={{ borderBottom: "1px solid var(--border)" }}>
+              <SectionLabel index="03">Habilidades &amp; Formação</SectionLabel>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {/* Linguagens */}
@@ -170,14 +176,16 @@ export default function Home() {
                     Linguagens
                   </h3>
                   <ul className="flex flex-col gap-3">
-                    {programmingSkills.map(skill => (
+                    {programmingSkills.map((skill, i) => (
                       <li
                         key={skill.name}
-                        className="flex items-center gap-3 px-3 py-2 rounded-sm transition-transform hover:-translate-y-0.5 hover:translate-x-0.5"
+                        className="flex items-center gap-3 px-3 py-2 transition-transform hover:-translate-y-0.5"
                         style={{
                           background: "var(--surface)",
                           border: "1px solid var(--border-strong)",
-                          boxShadow: "3px 3px 0px rgba(0,0,0,0.85)"
+                          boxShadow: i % 2 === 0
+                            ? "2px 2px 0px rgba(0,0,0,0.6)"
+                            : "3px 3px 0px rgba(0,0,0,0.5)",
                         }}
                       >
                         <skill.icon className="text-lg" style={{ color: skill.color }} />
@@ -190,17 +198,19 @@ export default function Home() {
                 {/* Segurança & Infra */}
                 <div>
                   <h3 className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: "var(--foreground-muted)" }}>
-                    Segurança & Infra
+                    Segurança &amp; Infra
                   </h3>
                   <ul className="flex flex-col gap-3">
-                    {infraSkills.map(skill => (
+                    {infraSkills.map((skill, i) => (
                       <li
                         key={skill.name}
-                        className="flex items-center gap-3 px-3 py-2 rounded-sm transition-transform hover:-translate-y-0.5 hover:translate-x-0.5"
+                        className="flex items-center gap-3 px-3 py-2 transition-transform hover:-translate-y-0.5"
                         style={{
                           background: "var(--surface)",
                           border: "1px solid var(--border-strong)",
-                          boxShadow: "3px 3px 0px rgba(0,0,0,0.85)"
+                          boxShadow: i % 2 === 0
+                            ? "3px 3px 0px rgba(0,0,0,0.5)"
+                            : "2px 2px 0px rgba(0,0,0,0.6)",
                         }}
                       >
                         <skill.icon className="text-lg" style={{ color: skill.color }} />
@@ -213,7 +223,7 @@ export default function Home() {
                 {/* Formação */}
                 <div>
                   <h3 className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: "var(--foreground-muted)" }}>
-                    Formação & Cursos
+                    Formação &amp; Cursos
                   </h3>
                   <ul className="space-y-4 text-sm mt-1">
                     {[
@@ -230,11 +240,11 @@ export default function Home() {
                   </ul>
                 </div>
               </div>
-            </motion.section>
+            </ScrollSection>
 
             {/* ─── 04 · VOLUNTARIADO & EXTENSÃO ─── */}
-            <motion.section variants={itemVariants} className="pb-10 mb-10" style={{ borderBottom: "1px solid var(--border)" }}>
-              <SectionLabel index="04">Voluntariado & Extensão</SectionLabel>
+            <ScrollSection className="pb-10 mb-8" style={{ borderBottom: "1px solid var(--border)" }}>
+              <SectionLabel index="04">Voluntariado &amp; Extensão</SectionLabel>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div>
@@ -243,7 +253,7 @@ export default function Home() {
                   </h3>
                   <p className="text-sm font-semibold mb-1" style={{ color: "var(--foreground)" }}>Desenvolvimento Web</p>
                   <p className="text-xs leading-relaxed" style={{ color: "var(--foreground-muted)" }}>
-                    Atuação no Núcleo de Projetos desenvolvendo sites institucionais e aplicações reais com React.
+                    Faço parte do Núcleo de Projetos. Desenvolvo sites e aplicações reais com React para clientes da empresa júnior.
                   </p>
                 </div>
 
@@ -253,7 +263,7 @@ export default function Home() {
                   </h3>
                   <p className="text-sm font-semibold mb-1" style={{ color: "var(--foreground)" }}>Lixo Eletrônico</p>
                   <p className="text-xs leading-relaxed" style={{ color: "var(--foreground-muted)" }}>
-                    Voluntário na coleta, triagem e destinação adequada de resíduos eletrônicos.
+                    Ajudo na coleta e triagem de lixo eletrônico dentro do programa de sustentabilidade do campus.
                   </p>
                 </div>
 
@@ -263,31 +273,28 @@ export default function Home() {
                   </h3>
                   <p className="text-sm font-semibold mb-1" style={{ color: "var(--foreground)" }}>Professor de Informática</p>
                   <p className="text-xs leading-relaxed" style={{ color: "var(--foreground-muted)" }}>
-                    Ensino de informática básica para crianças e adolescentes em situação de vulnerabilidade.
+                    Dei aulas de informática básica para crianças e adolescentes.
                   </p>
                 </div>
               </div>
-            </motion.section>
+            </ScrollSection>
 
-            {/* ─── 05 · OBJETIVO ─── */}
-            <motion.section variants={itemVariants}>
-              <SectionLabel index="05">Objetivo Profissional</SectionLabel>
+            {/* ─── 05 · MÚSICA & PASSATEMPOS ─── */}
+            <ScrollSection className="pb-2">
+              <SectionLabel index="05">Música &amp; Passatempos</SectionLabel>
               <p className="text-sm leading-relaxed max-w-3xl" style={{ color: "var(--foreground-muted)" }}>
-                Busco meu <strong style={{ color: "var(--foreground)" }}>primeiro estágio</strong> em Cibersegurança, Desenvolvimento de Software ou TI para aplicar conhecimentos em automação, monitoramento e desenvolvimento web — e crescer junto com uma equipe sólida.
+                Estou procurando meu <strong style={{ color: "var(--foreground)" }}>primeiro estágio</strong> de preferência em cibersegurança, desenvolvimento ou infra. Quero colocar em prática o que já aprendo sozinho e crescer com uma equipe boa.
               </p>
-            </motion.section>
+            </ScrollSection>
 
           </div>
         </WindowFrame>
 
         {/* Rodapé da página */}
         <motion.p variants={itemVariants} className="text-center text-xs mt-6" style={{ color: "var(--foreground-muted)" }}>
-          HIAGO.EXE · 2026 · Feito com Next.js + Tailwind + Framer Motion
+          HIAGO.EXE · 2026
         </motion.p>
       </motion.div>
     </div>
   );
 }
-
-
-

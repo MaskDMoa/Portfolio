@@ -14,12 +14,17 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
   className = ""
 }) => {
   return (
-    <div className={`flex flex-col overflow-hidden rounded-sm ${className}`}
+    <div 
+      className={`flex flex-col overflow-hidden ${className}`}
+      data-testid="window-frame"
       style={{ 
         background: "var(--surface)",
-        border: "1px solid var(--border)",
-        boxShadow: "0 2px 12px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.05)"
-      }}>
+        border: "1px solid var(--border-strong)",
+        boxShadow: "0 4px 24px rgba(0,0,0,0.3), 0 1px 4px rgba(0,0,0,0.2)",
+        borderRadius: "calc(16px * var(--corner-scale, 1))",
+        "--corner-shape": "superellipse(3)",
+        cornerShape: "superellipse(3)",
+      } as React.CSSProperties}>
       {/* Window Header */}
       <header 
         className="flex items-center justify-between px-5 py-3"
@@ -30,9 +35,9 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
       >
         <span className="text-sm font-bold uppercase tracking-widest text-black/80">{title}</span>
         <div className="flex gap-1.5" aria-hidden="true">
-          <span className="w-3 h-3 rounded-full bg-black/20" />
-          <span className="w-3 h-3 rounded-full bg-black/20" />
-          <span className="w-3 h-3 rounded-full bg-black/20" />
+          <span className="w-2.5 h-2.5 bg-black/25" />
+          <span className="w-2.5 h-2.5 bg-black/15" />
+          <span className="w-2.5 h-2.5 bg-black/25" />
         </div>
       </header>
       

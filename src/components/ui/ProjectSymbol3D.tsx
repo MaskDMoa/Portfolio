@@ -20,13 +20,13 @@ type SymbolStyle = {
 };
 
 const SYMBOL_STYLE: Record<string, SymbolStyle> = {
-    cross: { color: "#8a1f1f", edgeColor: "#ff6b6b", roughness: 0.3, metalness: 0.4 },
-    icosahedron: { color: "#1a1a1a", edgeColor: "#e8c469", roughness: 0.15, metalness: 0.85 },
-    shield: { color: "#1c2b3d", edgeColor: "#8fa8c9", roughness: 0.25, metalness: 0.7 },
-    torus: { color: "#1a1a1a", edgeColor: "#e8c469", roughness: 0.1, metalness: 0.9 },
-    capsule: { color: "#1c3d38", edgeColor: "#7fd8ca", roughness: 0.3, metalness: 0.5 },
-    cube: { color: "#22331a", edgeColor: "#9fcf5e", roughness: 0.4, metalness: 0.3 },
-    default: { color: "#111111", edgeColor: "#ffffff", roughness: 0.2, metalness: 0.8 },
+    cross: { color: "#4a0f0f", edgeColor: "#1a0505", roughness: 0.3, metalness: 0.4 },
+    icosahedron: { color: "#0a0a0a", edgeColor: "#000000", roughness: 0.15, metalness: 0.85 },
+    shield: { color: "#0d1b2a", edgeColor: "#000000", roughness: 0.25, metalness: 0.7 },
+    torus: { color: "#0a0a0a", edgeColor: "#000000", roughness: 0.1, metalness: 0.9 },
+    capsule: { color: "#0d2b26", edgeColor: "#000000", roughness: 0.3, metalness: 0.5 },
+    cube: { color: "#14210d", edgeColor: "#000000", roughness: 0.4, metalness: 0.3 },
+    default: { color: "#000000", edgeColor: "#000000", roughness: 0.2, metalness: 0.8 },
 };
 
 
@@ -133,7 +133,10 @@ export function ProjectSymbol3D({
     hovered: boolean;
 }) {
     return (
-        <div className="w-full h-full absolute inset-0 z-0 opacity-40 pointer-events-none [mask-image:radial-gradient(circle_at_bottom_right,black,transparent_75%)]">
+        <div
+            className="w-full h-full absolute inset-0 z-0 pointer-events-none [mask-image:radial-gradient(circle_at_bottom_right,black,transparent_70%)]"
+            style={{ mixBlendMode: "multiply", opacity: 0.85 }}
+        >
             <Canvas
                 camera={{ position: [0, 0, 4], fov: 45 }}
                 dpr={[1, 1.5]}
