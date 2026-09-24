@@ -106,7 +106,7 @@ export default function Home() {
                     Engenharia de Computação · INATEL · Cibersegurança & Dev
                   </p>
                   <p className="text-sm leading-relaxed max-w-sm mb-6" style={{ color: "var(--foreground-muted)" }}>
-                    Estudo Engenharia de Computação no INATEL. Mexo com cibersegurança (Wazuh, automação de resposta a incidentes) e desenvolvimento web no dia a dia.
+                    Estudante de Engenharia de Computação no INATEL em busca do primeiro estágio. Já participei de projetos reais para clientes, desenvolvi sites e aplicações web, fiz contato direto com o público em projeto próprio e atuei como professor voluntário. Quero aprender, contribuir com a equipe e crescer profissionalmente.
                   </p>
 
                   {/* Links de contato */}
@@ -253,7 +253,7 @@ export default function Home() {
                   </h3>
                   <p className="text-sm font-semibold mb-1" style={{ color: "var(--foreground)" }}>Desenvolvimento Web</p>
                   <p className="text-xs leading-relaxed" style={{ color: "var(--foreground-muted)" }}>
-                    Faço parte do Núcleo de Projetos. Desenvolvo sites e aplicações reais com React para clientes da empresa júnior.
+                    Assessor desde Jul/2026; anteriormente membro do Núcleo de Projetos. Desenvolvimento de sites institucionais e aplicações web para clientes (HTML, CSS, React).
                   </p>
                 </div>
 
@@ -263,7 +263,7 @@ export default function Home() {
                   </h3>
                   <p className="text-sm font-semibold mb-1" style={{ color: "var(--foreground)" }}>Lixo Eletrônico</p>
                   <p className="text-xs leading-relaxed" style={{ color: "var(--foreground-muted)" }}>
-                    Ajudo na coleta e triagem de lixo eletrônico dentro do programa de sustentabilidade do campus.
+                    Coleta, triagem e destinação adequada de resíduos eletrônicos, contribuindo com sustentabilidade ambiental.
                   </p>
                 </div>
 
@@ -273,7 +273,7 @@ export default function Home() {
                   </h3>
                   <p className="text-sm font-semibold mb-1" style={{ color: "var(--foreground)" }}>Professor de Informática</p>
                   <p className="text-xs leading-relaxed" style={{ color: "var(--foreground-muted)" }}>
-                    Dei aulas de informática básica para crianças e adolescentes.
+                    Aulas de informática básica para estudantes do Ensino Médio, em programa social do INATEL.
                   </p>
                 </div>
               </div>
