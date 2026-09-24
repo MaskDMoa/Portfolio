@@ -71,7 +71,7 @@ export const FileCard: React.FC<FileCardProps> = ({ project, index }) => {
           {index.toString().padStart(2, '0')}
         </span>
 
-        <div className="flex flex-col gap-0.5 mt-auto">
+        <div className="flex flex-col gap-0.5 mt-2">
           <small className="text-xs font-bold uppercase tracking-widest opacity-70" style={{ color: "rgba(0,0,0,0.9)" }}>
             {project.type}
           </small>
@@ -84,7 +84,7 @@ export const FileCard: React.FC<FileCardProps> = ({ project, index }) => {
           {project.description}
         </p>
         
-        <div className="mt-4 flex pointer-events-auto gap-2">
+        <div className="mt-auto pt-4 flex pointer-events-auto gap-2">
             <a 
               href={project.link}
               target="_blank"
